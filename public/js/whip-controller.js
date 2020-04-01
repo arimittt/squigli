@@ -15,7 +15,8 @@ $(() => {
 
 	window.addEventListener('deviceorientation', e => {
 		if (e.beta !== null && e.beta !== undefined) {
-			acceleration = e.beta
+			acceleration = e.beta + (e.beta > 90 ? -180 : (e.beta < -90 ? 180 : 0))
+			
 			socket.emit('whipControllerOutput', {
 				id: id,
 				reading: acceleration
