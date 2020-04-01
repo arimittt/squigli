@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>Squigli - Controller</title>
+		<link rel="stylesheet" type="text/css" href="css/whip-controller.css">
+		<link rel="stylesheet" href="https://use.typekit.net/ake2knt.css">
+		<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+	</head>
+	<body>
+		<div class="reading-container">
+			<h1 class="reading"><p style="font-weight: 700; color: var(--brown-dark)">Gyroscope not detected.</p></h1>
+			<svg class="hand" viewBox="0 0 63 86" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<path d="M61.882 72.6973V30.3639C61.882 28.615 60.4643 27.1973 58.7154 27.1973C55.2175 27.1973 52.382 30.0328 52.382 33.5306V48.6973H15.382L15.382 84.6973H49.882C56.5094 84.6973 61.882 79.3247 61.882 72.6973Z" fill="white" stroke="#E5ACBA" stroke-width="2"/>
+				<rect x="12.382" y="1.69727" width="40" height="78" rx="5" fill="white" stroke="#E5ACBA" stroke-width="2"/>
+				<rect x="15.382" y="12.6973" width="34" height="57" fill="#E5ACBA"/>
+				<rect x="4.38202" y="48.6973" width="24" height="12" rx="6" fill="white" stroke="#E5ACBA" stroke-width="2"/>
+				<rect x="1.38202" y="60.6973" width="30" height="12" rx="6" fill="white" stroke="#E5ACBA" stroke-width="2"/>
+				<rect x="7.38202" y="72.6973" width="21" height="12" rx="6" fill="white" stroke="#E5ACBA" stroke-width="2"/>
+			</svg>
+			<p>Flick your phone to<br>start making waves.</p>
+		</div>
+		<div class="settings">
+			<div class="settings-icon-container">
+				<svg class="settings-icon" version="1.2" baseProfile="tiny" id="icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+	 x="0px" y="0px" viewBox="0 0 512 512">
+					<path d="M479.7,311.25C460.74,300.14,448,279.56,448,256c0-23.56,12.74-44.14,31.7-55.25c13.83-8.1,20.05-24.84,14.1-39.72
+					c-9.24-23.11-21.75-44.56-36.96-63.77c-9.72-12.28-27.11-15.84-40.64-7.95c-10.34,6.04-22.53,9.26-35.51,8.6
+					c-31.3-1.58-57.26-26.21-60.37-57.39c-0.2-2.02-0.31-4.02-0.32-6c-0.13-15.9-11.32-29.6-27.05-31.88C280.89,0.91,268.55,0,256,0
+					s-24.89,0.91-36.95,2.65C203.31,4.93,192.13,18.63,192,34.53c-0.02,1.98-0.12,3.98-0.32,6c-3.1,31.18-29.07,55.81-60.37,57.39
+					c-12.98,0.65-25.17-2.57-35.51-8.6c-13.52-7.9-30.92-4.33-40.64,7.95c-15.21,19.22-27.72,40.66-36.96,63.77
+					c-5.95,14.88,0.27,31.62,14.1,39.72C51.26,211.86,64,232.44,64,256c0,23.56-12.74,44.14-31.7,55.25
+					c-13.83,8.1-20.05,24.84-14.1,39.72c9.24,23.11,21.75,44.56,36.96,63.77c9.72,12.28,27.11,15.84,40.64,7.95
+					c10.34-6.04,22.53-9.26,35.51-8.6c31.3,1.58,57.26,26.21,60.37,57.39c0.2,2.02,0.31,4.02,0.32,6c0.13,15.9,11.32,29.6,27.05,31.88
+					c12.06,1.75,24.4,2.65,36.95,2.65s24.89-0.91,36.95-2.65c15.73-2.28,26.92-15.98,27.05-31.88c0.02-1.98,0.12-3.98,0.32-6
+					c3.1-31.18,29.07-55.81,60.37-57.39c12.98-0.65,25.17,2.57,35.51,8.6c13.52,7.9,30.92,4.33,40.64-7.95
+					c15.21-19.22,27.72-40.66,36.96-63.77C499.75,336.08,493.53,319.34,479.7,311.25z M256,336c-44.18,0-80-35.82-80-80
+					c0-44.18,35.82-80,80-80s80,35.82,80,80C336,300.18,300.18,336,256,336z"/>
+				</svg>
+			</div>
+			<div class="settings-list">
+				<div class="settings-item checked" data-key="volume">
+					<div class="label">Volume</div>
+					<div class="toggle">
+						<div></div>
+					</div>
+				</div>
+				<div class="settings-item" data-key="pitch">
+					<div class="label">Pitch</div>
+					<div class="toggle">
+						<div></div>
+					</div>
+				</div>
+				<div class="settings-item" data-key="key">
+					<div class="label">Key</div>
+					<div class="toggle">
+						<div></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="js/jquery-3.4.1.js"></script>
+		<script src="js/socket.io.js"></script>
+		<script src="js/whip-controller.js"></script>
+	</body>
+</html>
