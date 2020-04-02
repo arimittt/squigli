@@ -1,4 +1,5 @@
 $(() => {
+	// Generate UID
 	let id = parseInt(Math.random() * 10000)
 
 	const whipCanvas = $('.whip-canvas')[0]
@@ -7,6 +8,8 @@ $(() => {
 
 	let curOffset = 0
 
+	// Resize for responsiveness (yet to implement into Matter.JS)
+
 	window.addEventListener('resize', resizeWindow)
 
 	function resizeWindow () {
@@ -14,10 +17,14 @@ $(() => {
 		whipCanvas.height = window.innerHeight
 
 		samplePoint = parseInt(whipCanvas.width / 2)
-	}
+	}	
 
 	function runWhip () {
+		// Configure radius of the rope
+
 		const ropeRadius = remToPx(1.5 / 2)
+
+		// Sets up the environment for Matter.JS
 
 		const Engine = Matter.Engine,
 					Render = Matter.Render,
@@ -50,6 +57,8 @@ $(() => {
 		const runner = Runner.create()
 		Runner.run(runner, engine)
 
+		// Creating the rope
+
 		let group = Body.nextGroup(true)
 		const rope = Composites.stack(0, whipCanvas.height / 2, parseInt(whipCanvas.width / (2 * ropeRadius)), 1, 10, 10, (x, y) => {
 			return Bodies.circle(x, y, ropeRadius, {
@@ -72,8 +81,12 @@ $(() => {
 
 		World.add(world, [rope])
 
+		// Configure the gravity to move sideways
+
 		engine.world.gravity.y = 0
 		engine.world.gravity.x = 1
+
+		// Add mouse control
 
 		const mouse = Mouse.create(render.canvas),
 					mouseConstraint = MouseConstraint.create(engine, {
@@ -95,6 +108,8 @@ $(() => {
 			max: { x: window.innerWidth, y: window.innerHeight }
 		})
 
+		// Pin the first and last links of the rope to the sides of the screen
+
 		Body.setStatic(rope.bodies[0], true)
 		Body.setPosition(rope.bodies[0], {
 			x: 0,
@@ -107,12 +122,16 @@ $(() => {
 			y: whipCanvas.height / 2
 		})
 
+		// Change the position of the last link based on the input coming from the controller
+
 		socket.on(`whipControllerInput-${id}`, data => {
 			Body.setPosition(rope.bodies[rope.bodies.length - 1], {
 				x:  whipCanvas.width,
 				y: (whipCanvas.height / 2) - (data * 2)
 			})
 		})
+
+		// Samples the middle link for sound generation
 
 		let samplePoint = parseInt(rope.bodies.length / 2)
 
@@ -123,6 +142,8 @@ $(() => {
 
 		checkSample()
 	}
+
+	// Generate and add the QR code with the ID to the DOM
 
 	function generateQRCode () {
 		let link = window.location.href + (window.location.href[window.location.href.length - 1] == '/' ? '' : '/') + 'controller?id=' + id
@@ -139,6 +160,8 @@ $(() => {
 			<p>Scan the code to open the <a href="${link}" target="_blank">CONTROLLER</a> on your phone.</p>
 		`)
 	}
+
+	// Audio synthesis and modification is done here
 
 	function generateAudio () {
 		let settings = {
@@ -159,6 +182,8 @@ $(() => {
 		]
 
 		const synth = new Tone.Synth().toMaster()
+
+		// Modify audio parameters such as volume or pitch
 
 		socket.on(`whipControllerParameters-${id}`, data => {
 			params = Object.assign(params, data)
@@ -184,6 +209,8 @@ $(() => {
 			console.log(settings[$(this).attr('data-key')])
 		})
 
+		/* TODO: Enabled user to change key */
+
 		synth.triggerAttack('C2', '8n')
 		function adjustTone () {
 			for (fn of paramFunctions) {
@@ -204,6 +231,8 @@ $(() => {
     el.style.animation = null;
 	}
 
+	// Sidebar functionality
+
 	$(window).one('click', generateAudio)
 	const sidebarEl = $('.sidebar')
 	$('.settings-icon').on('click', () => {
@@ -220,6 +249,8 @@ $(() => {
 			}, 300)
 		}
 	})
+
+	// Mute functionality
 
 	$('.mute-icon').on('click', function () {
 		Tone.Master.mute = !Tone.Master.mute
