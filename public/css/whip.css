@@ -161,3 +161,22 @@ a {
 	color: var(--brown-dark);
 	font: var(--para);
 }
+
+.incompatible {
+	display: none;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	padding: calc(2 * var(--base-unit));
+	box-sizing: border-box;
+	color: var(--light);
+	background-color: var(--brown-light);
+	z-index: 1000;
+}
+
+@media only screen and (max-width: 768px) {
+	.incompatible {
+		display: block;
+	}
+}
