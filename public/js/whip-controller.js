@@ -20,7 +20,7 @@ $(() => {
 	if (DeviceOrientationEvent && typeof(DeviceOrientationEvent.requestPermission) == 'function') {
 		let permissionGranted = confirm('Provide gyroscope access to enable controller.')
 		
-		if (permissionGranted = true) {
+		if (permissionGranted) {
 			DeviceOrientationEvent.requestPermission()
 		}
 	}
