@@ -18,41 +18,27 @@ $(() => {
 	// Listen for change in device orientation
 
 	if (DeviceOrientationEvent && typeof(DeviceOrientationEvent.requestPermission) == 'function') {
-		console.log(DeviceOrientationEvent.requestPermission)
-		const permissionState = await DeviceOrientationEvent.requestPermission()
-
-		if (permissionState == 'granted') {
-			window.addEventListener('deviceorientation', e => {
-				if (e.beta !== null && e.beta !== undefined) {
-					// Implements correction since beta may jump from -180 to 180 and vice-versa
-					acceleration = e.beta + (e.beta > 90 ? -180 : (e.beta < -90 ? 180 : 0))
-					
-					// Emits the current reading
+		let permissionGranted = confirm('Provide gyroscope access to enable controller.')
 		
-					socket.emit('whipControllerOutput', {
-						id: id,
-						reading: acceleration
-					})
-					updateReading()
-				}
-			}, true)
+		if (permissionGranted = true) {
+			DeviceOrientationEvent.requestPermission()
 		}
-	} else {
-		window.addEventListener('deviceorientation', e => {
-			if (e.beta !== null && e.beta !== undefined) {
-				// Implements correction since beta may jump from -180 to 180 and vice-versa
-				acceleration = e.beta + (e.beta > 90 ? -180 : (e.beta < -90 ? 180 : 0))
-				
-				// Emits the current reading
-	
-				socket.emit('whipControllerOutput', {
-					id: id,
-					reading: acceleration
-				})
-				updateReading()
-			}
-		}, true)
 	}
+
+	window.addEventListener('deviceorientation', e => {
+		if (e.beta !== null && e.beta !== undefined) {
+			// Implements correction since beta may jump from -180 to 180 and vice-versa
+			acceleration = e.beta + (e.beta > 90 ? -180 : (e.beta < -90 ? 180 : 0))
+			
+			// Emits the current reading
+
+			socket.emit('whipControllerOutput', {
+				id: id,
+				reading: acceleration
+			})
+			updateReading()
+		}
+	}, true)
 
 	// Updates the reading on the mobile DOM
 
