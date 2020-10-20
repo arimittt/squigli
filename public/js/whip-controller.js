@@ -19,6 +19,7 @@ $(() => {
 
 	if (DeviceOrientationEvent && typeof(DeviceOrientationEvent.requestPermission) == 'function') {
 		window.addEventListener('click', () => {
+			window.alert('clicked')
 			DeviceOrientationEvent.requestPermission()
 				.then(permissionState => {
 					if (permissionState == 'granted') {
