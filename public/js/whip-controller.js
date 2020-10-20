@@ -16,9 +16,12 @@ $(() => {
 	id = getQueryParams('id', window.location.href)
 
 	// Listen for change in device orientation
+	// iOS requires the user to explicitly allow gyroscope access
 
 	if (DeviceOrientationEvent && typeof(DeviceOrientationEvent.requestPermission) == 'function') {
 		const readingContainerEl = document.querySelector('.reading-container')
+
+		document.querySelector('.reading').innerHTML += `<p>Tap here to provide gyroscope access.</p>`
 
 		readingContainerEl.addEventListener('click', () => {
 			window.alert('clicked')
