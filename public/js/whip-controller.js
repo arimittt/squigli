@@ -18,6 +18,7 @@ $(() => {
 	// Listen for change in device orientation
 
 	if (DeviceOrientationEvent && typeof(DeviceOrientationEvent.requestPermission) == 'function') {
+		console.log(DeviceOrientationEvent.requestPermission())
 		const permissionState = await DeviceOrientationEvent.requestPermission()
 
 		if (permissionState == 'granted') {
