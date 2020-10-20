@@ -17,23 +17,41 @@ $(() => {
 
 	// Listen for change in device orientation
 
-	// const permissionState = await DeviceOrientationEvent.requestPermission()
-	DeviceOrientationEvent.requestPermission()
+	if (DeviceOrientationEvent && typeof(DeviceOrientationEvent.requestPermission) == 'function') {
+		const permissionState = await DeviceOrientationEvent.requestPermission()
 
-	window.addEventListener('deviceorientation', e => {
-		if (e.beta !== null && e.beta !== undefined) {
-			// Implements correction since beta may jump from -180 to 180 and vice-versa
-			acceleration = e.beta + (e.beta > 90 ? -180 : (e.beta < -90 ? 180 : 0))
-			
-			// Emits the current reading
-
-			socket.emit('whipControllerOutput', {
-				id: id,
-				reading: acceleration
-			})
-			updateReading()
+		if (permissionState == 'granted') {
+			window.addEventListener('deviceorientation', e => {
+				if (e.beta !== null && e.beta !== undefined) {
+					// Implements correction since beta may jump from -180 to 180 and vice-versa
+					acceleration = e.beta + (e.beta > 90 ? -180 : (e.beta < -90 ? 180 : 0))
+					
+					// Emits the current reading
+		
+					socket.emit('whipControllerOutput', {
+						id: id,
+						reading: acceleration
+					})
+					updateReading()
+				}
+			}, true)
 		}
-	}, true)
+	} else {
+		window.addEventListener('deviceorientation', e => {
+			if (e.beta !== null && e.beta !== undefined) {
+				// Implements correction since beta may jump from -180 to 180 and vice-versa
+				acceleration = e.beta + (e.beta > 90 ? -180 : (e.beta < -90 ? 180 : 0))
+				
+				// Emits the current reading
+	
+				socket.emit('whipControllerOutput', {
+					id: id,
+					reading: acceleration
+				})
+				updateReading()
+			}
+		}, true)
+	}
 
 	// Updates the reading on the mobile DOM
 
