@@ -17,6 +17,9 @@ $(() => {
 
 	// Listen for change in device orientation
 
+	// const permissionState = await DeviceOrientationEvent.requestPermission()
+	DeviceOrientationEvent.requestPermission()
+
 	window.addEventListener('deviceorientation', e => {
 		if (e.beta !== null && e.beta !== undefined) {
 			// Implements correction since beta may jump from -180 to 180 and vice-versa
