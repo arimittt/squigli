@@ -18,7 +18,9 @@ $(() => {
 	// Listen for change in device orientation
 
 	if (DeviceOrientationEvent && typeof(DeviceOrientationEvent.requestPermission) == 'function') {
-		window.addEventListener('click', () => {
+		const readingContainerEl = document.querySelector('.reading-container')
+
+		readingContainerEl.addEventListener('click', () => {
 			window.alert('clicked')
 			DeviceOrientationEvent.requestPermission()
 				.then(permissionState => {
