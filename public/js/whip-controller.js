@@ -24,7 +24,6 @@ $(() => {
 		document.querySelector('.reading').innerHTML += `<p>Tap here to provide gyroscope access.</p>`
 
 		readingContainerEl.addEventListener('click', () => {
-			window.alert('clicked')
 			DeviceOrientationEvent.requestPermission()
 				.then(permissionState => {
 					if (permissionState == 'granted') {
