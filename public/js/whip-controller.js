@@ -18,9 +18,7 @@ $(() => {
 	// Listen for change in device orientation
 
 	if (DeviceOrientationEvent && typeof(DeviceOrientationEvent.requestPermission) == 'function') {
-		let permissionGranted = confirm('Provide gyroscope access to enable controller.')
-		
-		if (permissionGranted) {
+		window.addEventListener('click', () => {
 			DeviceOrientationEvent.requestPermission()
 				.then(permissionState => {
 					if (permissionState == 'granted') {
@@ -28,7 +26,9 @@ $(() => {
 					}
 				})
 				.catch(console.error)
-		}
+		}, {
+			once: true
+		})
 	} else {
 		addOrientationListener()
 	}
