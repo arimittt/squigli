@@ -4,9 +4,10 @@ ENV NODE_ENV=production
 WORKDIR /app
 
 COPY package.json package-lock.json ./
-RUN npm ci --omit=dev && npm cache clean --force
+RUN npm ci --omit=dev --ignore-scripts && npm cache clean --force
 
 COPY --chown=node:node . .
+RUN node scripts/copy-socket-client.js
 
 USER node
 

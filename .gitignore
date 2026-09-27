@@ -128,3 +128,6 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+# Socket.IO client, copied from node_modules on install
+public/js/socket.io.js
+public/js/socket.io.js.map
