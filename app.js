@@ -2,9 +2,9 @@ const express = require('express')
 const app = express()
 const http = require('http').createServer(app)
 const io = require('socket.io')(http)
-const port = 3001;
+const port = process.env.PORT || 3000;
 
-app.use(express.static('public'))
+app.use(express.static(__dirname + '/public'))
 
 // Routing
 
@@ -14,6 +14,12 @@ app.get('/', (req, res) => {
 
 app.get('/controller', (req, res) => {
 	res.sendFile(__dirname + '/views/whip-controller.html')
+})
+
+// Health check for the deployment platform
+
+app.get('/health', (req, res) => {
+	res.sendStatus(200)
 })
 
 // Listens for any new connections
@@ -34,4 +40,11 @@ io.on('connection', socket => {
 	})
 })
 
-http.listen(port, () => console.log(`Port: ${port}`))
+http.listen(port, '0.0.0.0', () => console.log(`Port: ${port}`))
+
+// Shuts down cleanly when the container is stopped
+
+process.on('SIGTERM', () => {
+	io.close()
+	http.close(() => process.exit(0))
+})
